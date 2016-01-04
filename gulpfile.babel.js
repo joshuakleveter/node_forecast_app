@@ -3,6 +3,15 @@
 ////////////
 
 import gulp from "gulp";
+import gulpLoadPlugins from "gulp-load-plugins";
+
+
+
+////////////////////////////
+//Global vars & constants //
+////////////////////////////
+
+var plugin = gulpLoadPlugins();
 
 
 
