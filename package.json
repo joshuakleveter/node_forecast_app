@@ -17,5 +17,8 @@
     "babel-core": "6.3.26",
     "babel-eslint": "5.0.0-beta6",
     "gulp": "3.9.0"
+  },
+  "dependencies": {
+    "bootstrap-sass": "3.3.6"
   }
 }
