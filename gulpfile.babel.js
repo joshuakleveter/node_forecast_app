@@ -26,7 +26,7 @@ gulp.task("build", ["html:build"]);
  */
 gulp.task("html:build", function htmlBuildTask() {
     var htmlSrcFiles = "./src/**/*.html";
-    var htmlBuildDir = "./dist/views";
+    var htmlBuildDir = "./dist";
 
     gulp.src(htmlSrcFiles)
     .pipe(gulp.dest(htmlBuildDir));
