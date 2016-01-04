@@ -12,5 +12,8 @@
   "bugs": {
     "url": "https://github.com/joshuakleveter/node_forecast_app/issues"
   },
-  "homepage": "https://github.com/joshuakleveter/node_forecast_app#readme"
+  "homepage": "https://github.com/joshuakleveter/node_forecast_app#readme",
+  "devDependencies": {
+    "babel-eslint": "5.0.0-beta6"
+  }
 }
