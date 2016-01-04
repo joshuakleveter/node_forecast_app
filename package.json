@@ -2,7 +2,7 @@
   "name": "node_forecast_app",
   "version": "1.0.0",
   "description": "A basic Node-based forecast application.",
-  "main": "main.js",
+  "main": "dist/main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joshuakleveter/node_forecast_app.git"
