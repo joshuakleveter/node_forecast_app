@@ -1,0 +1,16 @@
+{
+  "name": "node_forecast_app",
+  "version": "1.0.0",
+  "description": "A basic Node-based forecast application.",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuakleveter/node_forecast_app.git"
+  },
+  "author": "Joshua Kleveter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joshuakleveter/node_forecast_app/issues"
+  },
+  "homepage": "https://github.com/joshuakleveter/node_forecast_app#readme"
+}
