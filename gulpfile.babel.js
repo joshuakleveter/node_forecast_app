@@ -38,5 +38,6 @@ gulp.task("html:build", function htmlBuildTask() {
     var htmlBuildDir = "./dist";
 
     gulp.src(htmlSrcFiles)
+    .pipe(plugin.html5Lint())
     .pipe(gulp.dest(htmlBuildDir));
 });
