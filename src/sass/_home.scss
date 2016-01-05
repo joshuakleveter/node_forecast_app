@@ -1,16 +1,10 @@
-html {
+html,
+body {
     height: 100%;
 }
 
-body {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 85%;
-    justify-content: center;
-}
-
 button[type="submit"] {
+    -webkit-appearance: none;
     background: $green;
     border: none;
     color: white;
@@ -23,5 +17,28 @@ button[type="submit"] {
 }
 
 input[type="search"] {
+    -webkit-appearance: none;
+    border: 1px solid $grey;
+    -webkit-border-radius: 0;
+    margin: 1rem 0;
     padding: 1rem;
+}
+
+
+#search {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 450px) {
+    form {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 30%;
+        justify-content: space-around;
+    }
 }
