@@ -3,3 +3,34 @@
     //Show home page
 //When user goes to "/forecast..."
     //Show forecast view
+
+////////////
+//Imports //
+////////////
+
+var http = require("http");
+
+
+
+////////
+//App //
+////////
+
+var serverPromise = new Promise(function (resolve, reject) {
+    var httpServer = http.createServer();
+    resolve(httpServer);
+    reject("There was an error in starting the server!");
+}).then(
+    function onFulfilled(httpServer) {
+        httpServer.listen(3000, "localhost", function () {
+            process.stdout.write("The app is running at localhost:3000\n");
+        });
+        return httpServer;
+    }
+);
+
+serverPromise.catch(
+    function onRejected(error) {
+        process.stderr.write(error.message + "\n");
+    }
+);
