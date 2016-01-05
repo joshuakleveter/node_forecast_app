@@ -1,0 +1,28 @@
+html {
+    height: 100%;
+}
+
+body {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85%;
+}
+
+button[type="submit"] {
+    background: $green;
+    color: white;
+    border: none;
+    padding: 1rem;
+
+    &:hover {
+        background: #327efb;
+        transition: background .5s ease-in;
+    }
+
+}
+
+input[type="search"] {
+    padding: 1rem;
+}

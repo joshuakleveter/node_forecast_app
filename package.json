@@ -16,6 +16,21 @@
   "devDependencies": {
     "babel-core": "6.3.26",
     "babel-eslint": "5.0.0-beta6",
-    "gulp": "3.9.0"
+    "babel-preset-es2015": "6.3.13",
+    "browser-sync": "2.11.0",
+    "gulp": "3.9.0",
+    "gulp-html5-lint": "1.1.0",
+    "gulp-load-plugins": "1.1.0",
+    "gulp-rename": "1.2.2",
+    "gulp-sass": "2.1.1",
+    "gulp-sourcemaps": "1.6.0"
+  },
+  "dependencies": {
+    "normalize.css": "3.0.3"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }
