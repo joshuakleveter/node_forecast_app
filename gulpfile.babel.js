@@ -2,6 +2,7 @@
 //Imports //
 ////////////
 
+import browserSync from "browser-sync";
 import gulp from "gulp";
 import gulpLoadPlugins from "gulp-load-plugins";
 
@@ -18,6 +19,22 @@ var plugin = gulpLoadPlugins();
 ///////////////////////
 //Primary Gulp tasks //
 ///////////////////////
+
+gulp.task("watch", ["build"], function () {
+    browserSync.init({
+        server: {
+            baseDir: "dist",
+            index: "views/index.html"
+        },
+        browser: "google chrome canary"
+    });
+
+    gulp.watch("./src/sass/*.scss", ["sass:build"]);
+    gulp.watch("src/**/*.html", ["html:build"]);
+    gulp.watch("dist/**/*.html").on("change", browserSync.reload);
+});
+
+
 
 /**
  * Build webapp
@@ -62,7 +79,8 @@ gulp.task("sass:build", function sassBuildTask() {
     .pipe(plugin.sourcemaps.init())
     .pipe(plugin.sass())
     .pipe(plugin.sourcemaps.write("."))
-    .pipe(gulp.dest(cssBuildDir));
+    .pipe(gulp.dest(cssBuildDir))
+    .pipe(browserSync.stream());
 });
 
 
