@@ -77,7 +77,7 @@ gulp.task("sass:build", function sassBuildTask() {
 
     gulp.src(sassSrcFiles)
     .pipe(plugin.sourcemaps.init())
-    .pipe(plugin.sass())
+    .pipe(plugin.sass().on("error", plugin.sass.logError))
     .pipe(plugin.sourcemaps.write("."))
     .pipe(gulp.dest(cssBuildDir))
     .pipe(browserSync.stream());
