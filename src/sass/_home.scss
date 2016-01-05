@@ -9,3 +9,14 @@ body {
     justify-content: center;
     height: 90%;
 }
+
+button[type="submit"] {
+    background: #55d856;
+    color: white;
+    border: none;
+    padding: 1rem;
+}
+
+input[type="search"] {
+    padding: 1rem;
+}
