@@ -39,7 +39,7 @@ gulp.task("watch", ["build"], function () {
 /**
  * Build webapp
  */
-gulp.task("build", ["html:build", "sass:build"]);
+gulp.task("build", ["html:build", "js:build", "sass:build"]);
 
 
 
@@ -66,6 +66,21 @@ gulp.task("html:build", function htmlBuildTask() {
         process.stderr.write(error.message + "\n");
     }))
     .pipe(gulp.dest(htmlBuildDir));
+});
+
+
+
+/**
+ * Build JS files
+ */
+gulp.task("js:build", function jsBuildTask() {
+    var jsSrcFiles = "./src/**/*.js";
+    var jsBuildDir = "./dist";
+
+    gulp.src(jsSrcFiles)
+    .pipe(plugin.eslint())
+    .pipe(plugin.eslint.format())
+    .pipe(gulp.dest(jsBuildDir));
 });
 
 
