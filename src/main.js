@@ -1,9 +1,3 @@
-//Set up a Node.js server on localhost:3000
-//When user goes to "/"
-    //Show home page
-//When user goes to "/forecast..."
-    //Show forecast view
-
 ////////////
 //Imports //
 ////////////
@@ -22,6 +16,7 @@ var serverPromise = new Promise(function (resolve, reject) {
     reject("There was an error in starting the server!");
 }).then(
     function onFulfilled(httpServer) {
+        //Set up a Node.js server on localhost:3000
         httpServer.listen(3000, "localhost", function () {
             process.stdout.write("The app is running at localhost:3000\n");
         });
@@ -30,8 +25,24 @@ var serverPromise = new Promise(function (resolve, reject) {
 ).then(
     function onFulfilled(httpServer) {
         httpServer.on("request", function (request, response) {
-            response.writeHead(200, {"Content-type": "text/plain"});
-            response.end("Hello World!");
+            switch (request.url) {
+            case "/error":
+                response.writeHead(404, {"Content-type": "text/plain"});
+                response.end("Error page");
+                break;
+            case "/forecast":
+                //When user goes to "/forecast..."
+                response.writeHead(200, {"Content-type": "text/plain"});
+                //Show forecast view
+                response.end("Forecast page");
+                break;
+            default:
+                //When user goes to "/"
+                response.writeHead(200, {"Content-type": "text/plain"});
+                //Show home page
+                response.end("Home page");
+                break;
+            }
         });
     }
 );
