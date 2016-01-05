@@ -57,5 +57,6 @@ gulp.task("sass:build", function sassBuildTask() {
     var cssBuildDir = "./dist/css";
 
     gulp.src(sassSrcFiles)
+    .pipe(plugin.sass())
     .pipe(gulp.dest(cssBuildDir));
 });
