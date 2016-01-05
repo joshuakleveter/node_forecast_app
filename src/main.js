@@ -27,6 +27,13 @@ var serverPromise = new Promise(function (resolve, reject) {
         });
         return httpServer;
     }
+).then(
+    function onFulfilled(httpServer) {
+        httpServer.on("request", function (request, response) {
+            response.writeHead(200, {"Content-type": "text/plain"});
+            response.end("Hello World!");
+        });
+    }
 );
 
 serverPromise.catch(
