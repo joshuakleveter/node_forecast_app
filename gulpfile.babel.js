@@ -71,7 +71,7 @@ gulp.task("html:build", function htmlBuildTask() {
 /**
  * Process Sass to CSS
  */
-gulp.task("sass:build", function sassBuildTask() {
+gulp.task("sass:build", ["sass:comb"], function sassBuildTask() {
     var sassSrcFiles = "./src/sass/*.scss";
     var cssBuildDir = "./dist/css";
 
@@ -81,6 +81,18 @@ gulp.task("sass:build", function sassBuildTask() {
     .pipe(plugin.sourcemaps.write("."))
     .pipe(gulp.dest(cssBuildDir))
     .pipe(browserSync.stream());
+});
+
+
+
+gulp.task("sass:comb", function sassCombTask() {
+    var sassSrcFiles = "./src/sass/*.scss";
+    var normalizeSCSS = "!./src/sass/_normalize.scss";
+    var sassSrcDir = "./src/sass";
+
+    gulp.src([sassSrcFiles, normalizeSCSS])
+    .pipe(plugin.csscomb())
+    .pipe(gulp.dest(sassSrcDir));
 });
 
 

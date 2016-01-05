@@ -3,24 +3,23 @@ html {
 }
 
 body {
-    flex-direction: column;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     height: 85%;
+    justify-content: center;
 }
 
 button[type="submit"] {
     background: $green;
-    color: white;
     border: none;
+    color: white;
     padding: 1rem;
 
     &:hover {
         background: $blue;
-        transition: background .5s ease-in;
+        transition: background 0.5s ease-in;
     }
-
 }
 
 input[type="search"] {
