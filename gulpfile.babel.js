@@ -38,11 +38,6 @@ gulp.task("html:build", function htmlBuildTask() {
     var htmlBuildDir = "./dist";
 
     gulp.src(htmlSrcFiles)
-    .pipe(plugin.htmlmin({
-        removeComments: true,
-        collapseWhitespace: true,
-        collapseBooleanAttributes: true
-    }))
     .pipe(plugin.html5Lint())
     .pipe(gulp.dest(htmlBuildDir));
 });
