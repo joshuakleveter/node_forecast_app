@@ -26,6 +26,13 @@ gulp.task("build", ["html:build", "sass:build"]);
 
 
 
+/**
+ * Install project deps
+ */
+gulp.task("deps", ["sass:deps"]);
+
+
+
 ////////////////////
 //Secondary tasks //
 ////////////////////
@@ -56,4 +63,21 @@ gulp.task("sass:build", function sassBuildTask() {
     .pipe(plugin.sass())
     .pipe(plugin.sourcemaps.write("."))
     .pipe(gulp.dest(cssBuildDir));
+});
+
+
+
+/**
+ * Install Sass deps
+ */
+gulp.task("sass:deps", function sassDepsTask() {
+    var normalizeCSS = "./node_modules/normalize.css/normalize.css";
+    var sassSrcDir = "./src/sass";
+
+    gulp.src(normalizeCSS)
+    .pipe(plugin.rename({
+        prefix: "_",
+        extname: ".scss"
+    }))
+    .pipe(gulp.dest(sassSrcDir));
 });
