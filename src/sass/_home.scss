@@ -1,8 +1,9 @@
-html {
+html,
+body {
     height: 100%;
 }
 
-body {
+#search {
     align-items: center;
     display: flex;
     flex-direction: column;
