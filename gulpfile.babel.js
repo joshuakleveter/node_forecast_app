@@ -32,6 +32,8 @@ gulp.task("watch", ["build"], function () {
     gulp.watch("./src/sass/*.scss", ["sass:build"]);
     gulp.watch("src/**/*.html", ["html:build"]);
     gulp.watch("dist/**/*.html").on("change", browserSync.reload);
+    gulp.watch("src/**/*.js", ["js:test"]);
+    gulp.watch("dist/**/*.js").on("change", browserSync.reload);
 });
 
 
@@ -39,7 +41,7 @@ gulp.task("watch", ["build"], function () {
 /**
  * Build webapp
  */
-gulp.task("build", ["html:build", "js:build", "sass:build"]);
+gulp.task("build", ["html:build", "js:test", "sass:build"]);
 
 
 
@@ -81,6 +83,17 @@ gulp.task("js:build", function jsBuildTask() {
     .pipe(plugin.eslint())
     .pipe(plugin.eslint.format())
     .pipe(gulp.dest(jsBuildDir));
+});
+
+
+
+gulp.task("js:test", ["js:build"], function jsTestTask() {
+    var testFile = "./test/test.js";
+
+    gulp.src(testFile, {read: false})
+    .pipe(plugin.mocha({
+        reporter: "dot"
+    }));
 });
 
 
