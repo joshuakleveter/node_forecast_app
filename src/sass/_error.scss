@@ -1,0 +1,8 @@
+#error {
+    background: $error-yellow;
+    color: darken($error-yellow, 50%);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+}
