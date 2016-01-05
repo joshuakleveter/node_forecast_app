@@ -4,6 +4,7 @@ body {
 }
 
 button[type="submit"] {
+    -webkit-appearance: none;
     background: $green;
     border: none;
     color: white;
@@ -16,9 +17,13 @@ button[type="submit"] {
 }
 
 input[type="search"] {
+    -webkit-appearance: none;
     border: 1px solid $grey;
+    -webkit-border-radius: 0;
+    margin: 1rem 0;
     padding: 1rem;
 }
+
 
 #search {
     align-items: center;
