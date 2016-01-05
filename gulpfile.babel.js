@@ -22,7 +22,7 @@ var plugin = gulpLoadPlugins();
 /**
  * Build webapp
  */
-gulp.task("build", ["html:build"]);
+gulp.task("build", ["html:build", "sass:build"]);
 
 
 
@@ -45,4 +45,17 @@ gulp.task("html:build", function htmlBuildTask() {
     }))
     .pipe(plugin.html5Lint())
     .pipe(gulp.dest(htmlBuildDir));
+});
+
+
+
+/**
+ * Process Sass to CSS
+ */
+gulp.task("sass:build", function sassBuildTask() {
+    var sassSrcFiles = "./src/sass/*.scss";
+    var cssBuildDir = "./dist/css";
+
+    gulp.src(sassSrcFiles)
+    .pipe(gulp.dest(cssBuildDir));
 });
