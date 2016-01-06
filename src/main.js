@@ -3,6 +3,7 @@
 ////////////
 
 var http = require("http");
+var router = require("./js/router.js");
 
 
 
