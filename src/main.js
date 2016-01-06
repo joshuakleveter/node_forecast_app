@@ -40,24 +40,7 @@ var serverPromise = new Promise(function (resolve, reject) {
      */
     function onFulfilled(httpServer) {
         httpServer.on("request", function (request, response) {
-            switch (request.url) {
-            case "/error":
-                response.writeHead(404, {"Content-type": "text/plain"});
-                response.end("Error page");
-                break;
-            case "/forecast":
-                //When user goes to "/forecast..."
-                response.writeHead(200, {"Content-type": "text/plain"});
-                //Show forecast view
-                response.end("Forecast page");
-                break;
-            default:
-                //When user goes to "/"
-                response.writeHead(200, {"Content-type": "text/plain"});
-                //Show home page
-                response.end("Home page");
-                break;
-            }
+            router.route(request, response);
         });
     }
 );
