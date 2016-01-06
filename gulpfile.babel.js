@@ -41,7 +41,7 @@ gulp.task("watch", ["build"], function () {
 /**
  * Build webapp
  */
-gulp.task("build", ["html:build", "js:test", "sass:build"]);
+gulp.task("build", ["html:build", "js:build", "sass:build"]);
 
 
 
@@ -64,9 +64,6 @@ gulp.task("html:build", function htmlBuildTask() {
     var htmlBuildDir = "./dist";
 
     gulp.src(htmlSrcFiles)
-    .pipe(plugin.html5Lint().on("error", (error) => {
-        process.stderr.write(error.message + "\n");
-    }))
     .pipe(gulp.dest(htmlBuildDir));
 });
 
@@ -83,17 +80,6 @@ gulp.task("js:build", function jsBuildTask() {
     .pipe(plugin.eslint())
     .pipe(plugin.eslint.format())
     .pipe(gulp.dest(jsBuildDir));
-});
-
-
-
-gulp.task("js:test", ["js:build"], function jsTestTask() {
-    var testFile = "./test/test.js";
-
-    gulp.src(testFile, {read: false})
-    .pipe(plugin.mocha({
-        reporter: "dot"
-    }));
 });
 
 
