@@ -19,18 +19,21 @@ function route(request, response) {
     switch (request.url) {
         //Home page
         case "/":
-            response.writeHead(200, {"Content-type": "text/plain"});
-            response.end("Home page");
+            response.writeHead(200, {"Content-type": "text/html"});
+            response.write("Home Page");
+            response.end();
             break;
         //Forecast page
         case "/forecast":
-            response.writeHead(200, {"Content-type": "text/plain"});
-            response.end("Forecast page");
+            response.writeHead(200, {"Content-type": "text/html"});
+            response.write("Forecast page");
+            response.end();
             break;
         //404 Errors
         default:
-            response.writeHead(404, {"Content-type": "text/plain"});
-            response.end("Error page");
+            response.writeHead(404, {"Content-type": "text/html"});
+            response.write("404 Error");
+            response.end();
             break;
     }
 }
