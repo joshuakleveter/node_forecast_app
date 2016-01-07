@@ -17,18 +17,17 @@
  */
 function route(request, response) {
     switch (request.url) {
+        //Home page
         case "/":
-            //When user goes to "/"
             response.writeHead(200, {"Content-type": "text/plain"});
-            //Show home page
             response.end("Home page");
             break;
+        //Forecast page
         case "/forecast":
-            //When user goes to "/forecast..."
             response.writeHead(200, {"Content-type": "text/plain"});
-            //Show forecast view
             response.end("Forecast page");
             break;
+        //404 Errors
         default:
             response.writeHead(404, {"Content-type": "text/plain"});
             response.end("Error page");
