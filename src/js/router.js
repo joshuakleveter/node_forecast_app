@@ -29,6 +29,12 @@ function route(request, response) {
             response.write("Forecast page");
             response.end();
             break;
+        //CSS Files
+        case "/css/main.css":
+            response.writeHead(200, {"Content-type": "text/css"});
+            //Write CSS file here
+            response.end();
+            break;
         //404 Errors
         default:
             response.writeHead(404, {"Content-type": "text/html"});
