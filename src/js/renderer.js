@@ -45,6 +45,36 @@ function* _generateView(templateArray) {
 
 
 
+/**
+ * Render view from templates
+ * @param  {String} view - Name of view
+ * @return {String}      - View HTML
+ */
+function render(view) {
+    switch (view) {
+        case "home":
+            var templateArray = [
+                "./views/head.html";
+                "./views/search.html";
+            ];
+            break;
+    }
+
+    var generator = _generateView(templateArray);
+    var filePromise = generator.next().value;
+    filePromise.then(
+        function onFulfilled(files) {
+            generator.next(files);
+            var view = generator.next().value;
+            return view;
+        }
+    );
+}
+
+
+
 ///////////////////
 //Module Exports //
 ///////////////////
+
+module.exports.home = render("home");
