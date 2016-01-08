@@ -54,8 +54,8 @@ function render(view) {
     switch (view) {
         case "home":
             var templateArray = [
-                "./views/head.html";
-                "./views/search.html";
+                "./views/head.html",
+                "./views/search.html"
             ];
             break;
     }
