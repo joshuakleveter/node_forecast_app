@@ -27,6 +27,24 @@ function _getFile(filepath) {
 
 
 
+/**
+ * Generate a view from templates
+ * @param  {Array} templateArray - Array of templates in render order
+ * @return {String}              - View HTML
+ */
+function* _generateView(templateArray) {
+    var templates = yield Promise.all(templateArray);
+
+    var view = "";
+    templates.forEach(function (template) {
+        view += template;
+    });
+
+    return view;
+}
+
+
+
 ///////////////////
 //Module Exports //
 ///////////////////
