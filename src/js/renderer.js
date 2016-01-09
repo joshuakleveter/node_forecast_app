@@ -62,23 +62,20 @@ function render(templateName, options) {
         case "home":
             templates = [
                 getFile("./views/head.html"),
-                getFile("./views/search.html"),
-                getFile("./views/footer.html")
+                getFile("./views/search.html")
             ];
             break;
         case "forecast":
             templates = [
                 getFile("./views/head.html"),
-                getFile("./views/forecast.html"),
-                getFile("./views/footer.html")
+                getFile("./views/forecast.html")
             ];
             break;
         case "error":
             templates = [
                 getFile("./views/head.html"),
                 getFile("./views/error.hbs"),
-                getFile("./views/search.html"),
-                getFile("./views/footer.html")
+                getFile("./views/search.html")
             ];
             break;
     }
