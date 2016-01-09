@@ -10,17 +10,25 @@ var render = require("./renderer.js");
 //Router Module //
 //////////////////
 
+function error404(response) {
+    response.writeHead(404, {"Content-type": "text/html"});
+    response.write("<h1>404 Error</h1>");
+    response.write("Sorry! We were unable to find the requested address");
+    response.end();
+}
+
+
+
 /**
  * Respond with a 500 error
  * @param  {http.ServerResponse} response - Node http.ServerResponse object
  * @param  {Error} error                  - Error object from Promise
  * @return {Undefined}
  */
-function error500(response, error) {
+function error500(response) {
     response.writeHead(500, {"Content-type": "text/html"});
     response.write("<h1>500 Error</h1>");
     response.write("<p>Sorry! We encountered the following error:<p>");
-    response.write("<p>" + error.message + "</p>");
     response.end();
 }
 
@@ -74,9 +82,7 @@ function route(request, response) {
         );
     }
     else {
-        response.writeHead(404, {"Content-type": "text/html"});
-        response.write("404 Error");
-        response.end();
+        error404(response);
     }
 }
 
