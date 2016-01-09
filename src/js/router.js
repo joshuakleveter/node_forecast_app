@@ -25,10 +25,11 @@ function error404(response) {
  * @param  {Error} error                  - Error object from Promise
  * @return {Undefined}
  */
-function error500(response) {
+function error500(response, error) {
     response.writeHead(500, {"Content-type": "text/html"});
     response.write("<h1>500 Error</h1>");
     response.write("<p>Sorry! We encountered the following error:<p>");
+    response.write("<p>" + error.message + "</p>");
     response.end();
 }
 
@@ -63,10 +64,13 @@ function route(request, response) {
         response.writeHead(200, {"Content-type": "text/html"});
         var forecast = render.forecast;
         forecast.then(
-            function (viewArray) {
+            function onFulfilled(viewArray) {
                 var view = viewArray.join("");
                 response.write(view);
                 response.end();
+            },
+            function onRejected(error) {
+                error500(response, error);
             }
         );
     }
@@ -75,9 +79,12 @@ function route(request, response) {
         response.writeHead(200, {"Content-type": "text/css"});
         var css = render.css;
         css.then(
-            function (cssFile) {
+            function onFulfilled(cssFile) {
                 response.write(cssFile);
                 response.end();
+            },
+            function onRejected(error) {
+                error500(response, error);
             }
         );
     }
