@@ -2,6 +2,7 @@
 //Imports //
 ////////////
 
+var render = require("./renderer.js");
 
 
 
@@ -20,8 +21,14 @@ function route(request, response) {
         //Home page
         case "/":
             response.writeHead(200, {"Content-type": "text/html"});
-            response.write("Home page");
-            response.end();
+            var viewPromise = render.home();
+            viewPromise.then(
+                function (viewArray) {
+                    var view = viewArray.join("");
+                    response.write(view);
+                    response.end();
+                }
+            );
             break;
         //Forecast page
         case "/forecast":
