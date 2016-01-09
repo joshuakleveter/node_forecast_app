@@ -1,44 +1,45 @@
 {
-    "name": "node_forecast_app",
-    "version": "1.0.0",
-    "description": "A basic Node-based forecast application.",
-    "main": "dist/main.js",
-    "scripts": {
-        "app": "gulp build && cd dist && node main.js",
-        "debug": "gulp build && cd dist && iron-node main.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/joshuakleveter/node_forecast_app.git"
-    },
-    "author": "Joshua Kleveter",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/joshuakleveter/node_forecast_app/issues"
-    },
-    "homepage": "https://github.com/joshuakleveter/node_forecast_app#readme",
-    "devDependencies": {
-        "babel-core": "6.3.26",
-        "babel-eslint": "5.0.0-beta6",
-        "babel-preset-es2015": "6.3.13",
-        "browser-sync": "2.11.0",
-        "chai": "3.4.1",
-        "gulp": "3.9.0",
-        "gulp-csscomb": "3.0.6",
-        "gulp-eslint": "1.1.1",
-        "gulp-html5-lint": "1.1.0",
-        "gulp-load-plugins": "1.1.0",
-        "gulp-mocha": "2.2.0",
-        "gulp-rename": "1.2.2",
-        "gulp-sass": "2.1.1",
-        "gulp-sourcemaps": "1.6.0"
-    },
-    "dependencies": {
-        "normalize.css": "3.0.3"
-    },
-    "babel": {
-        "presets": [
-            "es2015"
-        ]
-    }
+  "name": "node_forecast_app",
+  "version": "1.0.0",
+  "description": "A basic Node-based forecast application.",
+  "main": "dist/main.js",
+  "scripts": {
+    "app": "gulp build && cd dist && node main.js",
+    "debug": "gulp build && cd dist && iron-node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuakleveter/node_forecast_app.git"
+  },
+  "author": "Joshua Kleveter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joshuakleveter/node_forecast_app/issues"
+  },
+  "homepage": "https://github.com/joshuakleveter/node_forecast_app#readme",
+  "devDependencies": {
+    "babel-core": "6.3.26",
+    "babel-eslint": "5.0.0-beta6",
+    "babel-preset-es2015": "6.3.13",
+    "browser-sync": "2.11.0",
+    "chai": "3.4.1",
+    "gulp": "3.9.0",
+    "gulp-csscomb": "3.0.6",
+    "gulp-eslint": "1.1.1",
+    "gulp-html5-lint": "1.1.0",
+    "gulp-load-plugins": "1.1.0",
+    "gulp-mocha": "2.2.0",
+    "gulp-rename": "1.2.2",
+    "gulp-sass": "2.1.1",
+    "gulp-sourcemaps": "1.6.0"
+  },
+  "dependencies": {
+    "handlebars": "4.0.5",
+    "normalize.css": "3.0.3"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
 }
