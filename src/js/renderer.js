@@ -3,6 +3,7 @@
 ////////////
 
 var fs = require("fs");
+var handlebars = require("handlebars");
 
 
 
@@ -32,12 +33,13 @@ function getFile(filepath) {
  * @param  {Array}  - Array of template files in render order
  * @return {String} - View HTML
  */
-function* _generateView(templateFiles) {
+function* _generateView(templateFiles, options) {
     var templates = yield Promise.all(templateFiles);
 
-    var view = "";
+    var view = "", compiledTemplate;
     templates.forEach(function (template) {
-        view += template;
+        compiledTemplate = handlebars.compile(template);
+        view += compiledTemplate(options);
     });
     return view;
 }
@@ -47,9 +49,14 @@ function* _generateView(templateFiles) {
 /**
  * Handle rendering views
  * @param  {String}  - Name of template to render
+ * @param  {Object}  - Options object
  * @return {Promise} - Promise for view
  */
-function render(templateName) {
+function render(templateName, options) {
+    if (options == undefined) {
+        options = {};
+    }
+
     var templates = [];
     switch (templateName) {
         case "home":
@@ -67,22 +74,22 @@ function render(templateName) {
         case "error":
             templates = [
                 getFile("./views/head.html"),
-                getFile("./views/error.html"),
+                getFile("./views/error.hbs"),
                 getFile("./views/search.html")
             ];
             break;
     }
 
-    var generator = _generateView(templates);
+    var generator = _generateView(templates, options);
 
     var templatePromise = generator.next().value;
-    templatePromise.then(
+    var viewPromise = templatePromise.then(
         function onFulfilled(templates) {
             var view = generator.next(templates).value;
             return view;
         }
     );
-    return Promise.resolve(templatePromise);
+    return Promise.resolve(viewPromise);
 }
 
 
@@ -92,6 +99,4 @@ function render(templateName) {
 ///////////////////
 
 module.exports.css = getFile("./css/main.css");
-module.exports.error = render("error");
-module.exports.forecast = render("forecast");
-module.exports.home = render("home");
+module.exports.render = render;
