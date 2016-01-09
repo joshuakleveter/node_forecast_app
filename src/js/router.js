@@ -66,6 +66,7 @@ function route(request, response) {
         var locationRegExp = /location=\d{5}$/i,
             forecast;
 
+        //Validate ZIP code:
         if(locationRegExp.test(request.url)) {
             forecast = render.forecast;
         } else {
