@@ -29,13 +29,11 @@ function _getFile(filepath) {
 
 /**
  * Generate a view from templates
+ * @param  {Array}  - Array of template files in render order
  * @return {String} - View HTML
  */
-function* generateView() {
-    var templates = yield Promise.all([
-        _getFile("./views/head.html"),
-        _getFile("./views/search.html")
-    ]);
+function* _generateView(templateFiles) {
+    var templates = yield Promise.all(templateFiles);
 
     var view = "";
     templates.forEach(function (template) {
@@ -48,10 +46,27 @@ function* generateView() {
 
 /**
  * Handle rendering views
+ * @param  {String}  - Name of template to render
  * @return {Promise} - Promise for view
  */
-function render() {
-    var generator = generateView();
+function render(templateName) {
+    var templates = [];
+    switch (templateName) {
+        case "home":
+            templates = [
+                _getFile("./views/head.html"),
+                _getFile("./views/search.html")
+            ];
+            break;
+        case "forecast":
+            templates = [
+                _getFile("./views/head.html"),
+                _getFile("./views/forecast.html")
+            ];
+            break;
+    }
+
+    var generator = _generateView(templates);
 
     var templatePromise = generator.next().value;
     templatePromise.then(
@@ -69,4 +84,5 @@ function render() {
 //Module Exports //
 ///////////////////
 
-module.exports.home = render;
+module.exports.home = render("home");
+module.exports.forecast = render("forecast");

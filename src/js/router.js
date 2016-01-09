@@ -21,8 +21,8 @@ function route(request, response) {
         //Home page
         case "/":
             response.writeHead(200, {"Content-type": "text/html"});
-            var viewPromise = render.home();
-            viewPromise.then(
+            var home = render.home;
+            home.then(
                 function (viewArray) {
                     var view = viewArray.join("");
                     response.write(view);
@@ -33,8 +33,14 @@ function route(request, response) {
         //Forecast page
         case "/forecast":
             response.writeHead(200, {"Content-type": "text/html"});
-            response.write("Forecast page");
-            response.end();
+            var forecast = render.forecast;
+            forecast.then(
+                function (viewArray) {
+                    var view = viewArray.join("");
+                    response.write(view);
+                    response.end();
+                }
+            );
             break;
         //CSS Files
         case "/css/main.css":
