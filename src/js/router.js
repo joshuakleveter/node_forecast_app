@@ -62,7 +62,16 @@ function route(request, response) {
     else if (forecastRegExp.test(request.url)) {
         //Forecast page
         response.writeHead(200, {"Content-type": "text/html"});
-        var forecast = render.forecast;
+
+        var locationRegExp = /location=\d{5}$/i,
+            forecast;
+
+        if(locationRegExp.test(request.url)) {
+            forecast = render.forecast;
+        } else {
+            forecast = render.error;
+        }
+
         forecast.then(
             function onFulfilled(viewArray) {
                 var view = viewArray.join("");

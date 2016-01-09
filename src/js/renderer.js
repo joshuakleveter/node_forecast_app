@@ -64,6 +64,13 @@ function render(templateName) {
                 getFile("./views/forecast.html")
             ];
             break;
+        case "error":
+            templates = [
+                getFile("./views/head.html"),
+                getFile("./views/error.html"),
+                getFile("./views/search.html")
+            ];
+            break;
     }
 
     var generator = _generateView(templates);
@@ -85,5 +92,6 @@ function render(templateName) {
 ///////////////////
 
 module.exports.css = getFile("./css/main.css");
+module.exports.error = render("error");
 module.exports.forecast = render("forecast");
 module.exports.home = render("home");
