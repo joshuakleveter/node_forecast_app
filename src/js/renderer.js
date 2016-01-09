@@ -15,7 +15,7 @@ var fs = require("fs");
  * @param  {String} filepath - Path to file
  * @return {Promise}         - Promise for file data
  */
-function _getFile(filepath) {
+function getFile(filepath) {
     var filePromise = new Promise(function (resolve, reject) {
         fs.readFile(filepath, "utf8", function (error, data) {
             if (error) reject(error);
@@ -54,14 +54,14 @@ function render(templateName) {
     switch (templateName) {
         case "home":
             templates = [
-                _getFile("./views/head.html"),
-                _getFile("./views/search.html")
+                getFile("./views/head.html"),
+                getFile("./views/search.html")
             ];
             break;
         case "forecast":
             templates = [
-                _getFile("./views/head.html"),
-                _getFile("./views/forecast.html")
+                getFile("./views/head.html"),
+                getFile("./views/forecast.html")
             ];
             break;
     }
@@ -84,5 +84,6 @@ function render(templateName) {
 //Module Exports //
 ///////////////////
 
-module.exports.home = render("home");
+module.exports.css = getFile("./css/main.css");
 module.exports.forecast = render("forecast");
+module.exports.home = render("home");

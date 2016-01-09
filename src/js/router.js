@@ -46,8 +46,13 @@ function route(request, response) {
     else if (request.url == "/css/main.css") {
         //CSS Files
         response.writeHead(200, {"Content-type": "text/css"});
-        //Write CSS file here
-        response.end();
+        var css = render.css;
+        css.then(
+            function (cssFile) {
+                response.write(cssFile);
+                response.end();
+            }
+        );
     }
     else {
         response.writeHead(404, {"Content-type": "text/html"});
