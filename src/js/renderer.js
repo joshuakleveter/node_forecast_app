@@ -10,6 +10,11 @@ var fs = require("fs");
 //Renderer Module //
 ////////////////////
 
+/**
+ * Get the contents of a file
+ * @param  {String} filepath - Path to file
+ * @return {Promise}         - Promise for file data
+ */
 function _getFile(filepath) {
     var filePromise = new Promise(function (resolve, reject) {
         fs.readFile(filepath, "utf8", function (error, data) {
@@ -22,6 +27,10 @@ function _getFile(filepath) {
 
 
 
+/**
+ * Generate a view from templates
+ * @return {String} - View HTML
+ */
 function* generateView() {
     var templates = yield Promise.all([
         _getFile("./views/head.html"),
@@ -37,7 +46,11 @@ function* generateView() {
 
 
 
-function route() {
+/**
+ * Handle rendering views
+ * @return {Promise} - Promise for view
+ */
+function render() {
     var generator = generateView();
 
     var templatePromise = generator.next().value;
@@ -56,4 +69,4 @@ function route() {
 //Module Exports //
 ///////////////////
 
-module.exports.home = route;
+module.exports.home = render;
