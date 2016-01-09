@@ -4,8 +4,8 @@
     "description": "A basic Node-based forecast application.",
     "main": "dist/main.js",
     "scripts": {
-        "app": "gulp build && node dist/main.js",
-        "debug": "gulp build && iron-node dist/main.js"
+        "app": "gulp build && cd dist && node main.js",
+        "debug": "gulp build && cd dist && iron-node main.js"
     },
     "repository": {
         "type": "git",
