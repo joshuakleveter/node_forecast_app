@@ -60,7 +60,7 @@ gulp.task("deps", ["sass:deps"]);
  * Build HTML views
  */
 gulp.task("html:build", function htmlBuildTask() {
-    var htmlSrcFiles = "./src/**/*.html";
+    var htmlSrcFiles = ["./src/**/*.html", "./src/**/*.hbs"];
     var htmlBuildDir = "./dist";
 
     gulp.src(htmlSrcFiles)
