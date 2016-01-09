@@ -38,7 +38,6 @@ function* _generateView(templateFiles, options) {
 
     var view = "", compiledTemplate;
     templates.forEach(function (template) {
-        debugger;
         compiledTemplate = handlebars.compile(template);
         view += compiledTemplate(options);
     });
