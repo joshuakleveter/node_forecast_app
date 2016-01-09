@@ -47,10 +47,9 @@ function route(request, response) {
     if (request.url == "/") {
         //Home page
         response.writeHead(200, {"Content-type": "text/html"});
-        var home = render.home;
+        var home = render.render("home");
         home.then(
-            function onFulfilled(viewArray) {
-                var view = viewArray.join("");
+            function onFulfilled(view) {
                 response.write(view);
                 response.end();
             },
@@ -68,14 +67,13 @@ function route(request, response) {
 
         //Validate ZIP code:
         if(locationRegExp.test(request.url)) {
-            forecast = render.forecast;
+            forecast = render.render("forecast");
         } else {
-            forecast = render.error;
+            forecast = render.render("error", {errorMessage: "Please enter a valid 5 digit ZIP code."});
         }
 
         forecast.then(
-            function onFulfilled(viewArray) {
-                var view = viewArray.join("");
+            function onFulfilled(view) {
                 response.write(view);
                 response.end();
             },
