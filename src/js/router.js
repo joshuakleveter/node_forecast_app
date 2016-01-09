@@ -11,6 +11,22 @@ var render = require("./renderer.js");
 //////////////////
 
 /**
+ * Respond with a 500 error
+ * @param  {http.ServerResponse} response - Node http.ServerResponse object
+ * @param  {Error} error                  - Error object from Promise
+ * @return {Undefined}
+ */
+function error500(response, error) {
+    response.writeHead(500, {"Content-type": "text/html"});
+    response.write("<h1>500 Error</h1>");
+    response.write("<p>Sorry! We encountered the following error:<p>");
+    response.write("<p>" + error.message + "</p>");
+    response.end();
+}
+
+
+
+/**
 * Handle app routing
 * @param  {http.ClientRequest} request   - Client request
 * @param  {http.ServerResponse} response - Server response
@@ -24,10 +40,13 @@ function route(request, response) {
         response.writeHead(200, {"Content-type": "text/html"});
         var home = render.home;
         home.then(
-            function (viewArray) {
+            function onFulfilled(viewArray) {
                 var view = viewArray.join("");
                 response.write(view);
                 response.end();
+            },
+            function onRejected(error) {
+                error500(response, error);
             }
         );
     }
