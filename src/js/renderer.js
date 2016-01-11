@@ -3,7 +3,9 @@
 ////////////
 
 var fs = require("fs");
+var geocode = require("./geocoding.js");
 var handlebars = require("handlebars");
+var runner = require("./runner.js");
 
 
 
@@ -35,6 +37,10 @@ function getFile(filepath) {
  */
 function* _generateView(templateFiles, options) {
     var templates = yield Promise.all(templateFiles);
+
+    if (options.hasOwnProperty("location")) {
+        var latLong = yield Promise.resolve(geocode.geocode(options.location));
+    }
 
     var view = "", compiledTemplate;
     templates.forEach(function (template) {
@@ -80,16 +86,7 @@ function render(templateName, options) {
             break;
     }
 
-    var generator = _generateView(templates, options);
-
-    var templatePromise = generator.next().value;
-    var viewPromise = templatePromise.then(
-        function onFulfilled(templates) {
-            var view = generator.next(templates).value;
-            return view;
-        }
-    );
-    return Promise.resolve(viewPromise);
+    return runner.run(_generateView, templates, options);
 }
 
 
