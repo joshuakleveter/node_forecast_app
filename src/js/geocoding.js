@@ -21,7 +21,7 @@ function _geocodeRequest(zip) {
         //API Key
         var key = "AIzaSyAqOAWv-714TAq0SdCwn9BogqzRuhPjA2A";
         //API URL
-        var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zip + "&key=" + key;
+        var url = "https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:" + zip + "&key=" + key;
 
         //Create a new API request over HTTPS
         var apiRequest = https.get(url, function (response) {
@@ -78,8 +78,8 @@ function geocodeHandler(zip) {
         }
     ).catch(
         function onRejected(error) {
-            //If Promise is rejected output error
-            process.stderr.write(error.message + "\n");
+            //If Promise is rejected throw error
+            throw error;
         }
     );
 }
