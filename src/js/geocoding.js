@@ -3,6 +3,7 @@
 ////////////
 
 var https = require("https");
+var runner = require("./runner.js");
 
 
 
@@ -67,21 +68,7 @@ function* geocode(zip) {
  * @return {Promise}    - Promise for Lat/Long of ZIP code
  */
 function geocodeHandler(zip) {
-    //Create iterator for geocode generator
-    var generator = geocode(zip);
-
-    //Return geocode Promise
-    return generator.next().value.then(
-        function onFulfilled(responseData) {
-            //When Promise fulfills return lat/long data
-            return generator.next(responseData).value;
-        }
-    ).catch(
-        function onRejected(error) {
-            //If Promise is rejected throw error
-            throw error;
-        }
-    );
+    return runner.run(geocode, zip);
 }
 
 
