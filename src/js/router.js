@@ -3,6 +3,7 @@
 ////////////
 
 var render = require("./renderer.js");
+var querystring = require("querystring");
 
 
 
@@ -63,11 +64,12 @@ function route(request, response) {
         response.writeHead(200, {"Content-type": "text/html"});
 
         var locationRegExp = /location=\d{5}$/i,
+            argsRegExp = /\?\w+.*$/i,
             forecast;
 
         //Validate ZIP code:
         if(locationRegExp.test(request.url)) {
-            forecast = render.render("forecast");
+            forecast = render.render("forecast", querystring.parse( argsRegExp.exec(request.url).join("").substr(1) ));
         } else {
             forecast = render.render("error", {errorMessage: "Please enter a valid 5 digit ZIP code."});
         }
