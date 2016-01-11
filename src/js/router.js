@@ -3,6 +3,7 @@
 ////////////
 
 var render = require("./renderer.js");
+var runner = require("./runner.js");
 var querystring = require("querystring");
 
 
@@ -42,61 +43,52 @@ function error500(response, error) {
 * @param  {http.ServerResponse} response - Server response
 * @return {http.ServerResponse}          - response object
 */
-function route(request, response) {
+function* route(request, response) {
     var forecastRegExp = /^\/forecast(\?location\=\w*)?$/i;
 
     if (request.url == "/") {
         //Home page
-        response.writeHead(200, {"Content-type": "text/html"});
-        var home = render.render("home");
-        home.then(
-            function onFulfilled(view) {
-                response.write(view);
-                response.end();
-            },
-            function onRejected(error) {
-                error500(response, error);
-            }
-        );
+        try {
+            response.writeHead(200, {"Content-type": "text/html"});
+            var home = yield Promise.resolve(render.render("home"));
+            response.write(home);
+            response.end();
+        } catch (error) {
+            error500(response, error);
+        }
     }
     else if (forecastRegExp.test(request.url)) {
         //Forecast page
-        response.writeHead(200, {"Content-type": "text/html"});
 
         var locationRegExp = /location=\d{5}$/i,
             argsRegExp = /\?\w+.*$/i,
             forecast;
 
-        //Validate ZIP code:
-        if(locationRegExp.test(request.url)) {
-            forecast = render.render("forecast", querystring.parse( argsRegExp.exec(request.url).join("").substr(1) ));
-        } else {
-            forecast = render.render("error", {errorMessage: "Please enter a valid 5 digit ZIP code."});
-        }
-
-        forecast.then(
-            function onFulfilled(view) {
-                response.write(view);
-                response.end();
-            },
-            function onRejected(error) {
-                error500(response, error);
+        try {
+            response.writeHead(200, {"Content-type": "text/html"});
+            //Validate ZIP code:
+            if(locationRegExp.test(request.url)) {
+                forecast = yield Promise.resolve(render.render("forecast", querystring.parse( argsRegExp.exec(request.url).join("").substr(1) )));
+            } else {
+                forecast = yield Promise.resolve(render.render("error", {errorMessage: "Please enter a valid 5 digit ZIP code."}));
             }
-        );
+
+            response.write(forecast);
+            response.end();
+        } catch (error) {
+            error500(response, error);
+        }
     }
     else if (request.url == "/css/main.css") {
         //CSS Files
-        response.writeHead(200, {"Content-type": "text/css"});
-        var css = render.css;
-        css.then(
-            function onFulfilled(cssFile) {
-                response.write(cssFile);
-                response.end();
-            },
-            function onRejected(error) {
-                error500(response, error);
-            }
-        );
+        try {
+            response.writeHead(200, {"Content-type": "text/css"});
+            var css = yield Promise.resolve(render.css);
+            response.write(css);
+            response.end();
+        } catch (error) {
+            error500(response, error);
+        }
     }
     else {
         error404(response);
@@ -104,8 +96,13 @@ function route(request, response) {
 }
 
 
+
+function routeHandler(request, response) {
+    runner.run(route, request, response);
+}
+
 ///////////////////
 //Module Exports //
 ///////////////////
 
-module.exports.route = route;
+module.exports.route = routeHandler;
