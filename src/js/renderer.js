@@ -2,6 +2,7 @@
 //Imports //
 ////////////
 
+var forecast = require("./forecast.js");
 var fs = require("fs");
 var geocode = require("./geocoding.js");
 var handlebars = require("handlebars");
@@ -40,6 +41,9 @@ function* _generateView(templateFiles, options) {
 
     if (options.hasOwnProperty("location")) {
         var latLong = yield Promise.resolve(geocode.geocode(options.location));
+        var forecastData = yield Promise.resolve(forecast.forecast(latLong.lat, latLong.lng));
+        options.currently = forecastData.currently;
+        options.daily = forecastData.daily;
     }
 
     var view = "", compiledTemplate;
@@ -74,7 +78,7 @@ function render(templateName, options) {
         case "forecast":
             templates = [
                 getFile("./views/head.html"),
-                getFile("./views/forecast.html")
+                getFile("./views/forecast.hbs")
             ];
             break;
         case "error":
