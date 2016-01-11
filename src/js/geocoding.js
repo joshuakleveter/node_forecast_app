@@ -50,6 +50,28 @@ function* geocode(zip) {
 
 
 
+/**
+ * Handle geocode generator
+ * @param  {String} zip - ZIP code
+ * @return {Object}     - Lat/Long of ZIP code
+ */
+function geocodeHandler(zip) {
+    var generator = geocode(zip);
+    generator.next().value.then(
+        function onFulfilled(responseData) {
+            return generator.next(responseData);
+        }
+    ).catch(
+        function onRejected(error) {
+            process.stderr.write(error.message + "\n");
+        }
+    );
+}
+
+
+
 ///////////////////
 //Module Exports //
 ///////////////////
+
+module.exports.geocode = geocodeHandler;
