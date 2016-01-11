@@ -53,13 +53,13 @@ function* geocode(zip) {
 /**
  * Handle geocode generator
  * @param  {String} zip - ZIP code
- * @return {Object}     - Lat/Long of ZIP code
+ * @return {Promise}    - Promise for Lat/Long of ZIP code
  */
 function geocodeHandler(zip) {
     var generator = geocode(zip);
-    generator.next().value.then(
+    return generator.next().value.then(
         function onFulfilled(responseData) {
-            return generator.next(responseData);
+            return generator.next(responseData).value;
         }
     ).catch(
         function onRejected(error) {
