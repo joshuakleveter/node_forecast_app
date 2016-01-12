@@ -1,0 +1,19 @@
+////////////
+//Imports //
+////////////
+
+//Normalize.css Reset
+@import "_normalize.scss";
+
+
+
+//Variables
+@import "_vars.scss";
+
+
+
+//Page Styles
+@import "_error.scss";
+@import "_forecast.scss";
+@import "_home.scss";
+@import "_nav.scss";

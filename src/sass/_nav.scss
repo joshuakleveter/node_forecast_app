@@ -1,0 +1,16 @@
+a, #address {
+    color: $white;
+    text-decoration: none;
+}
+
+nav {
+    align-items: center;
+    justify-content: space-between;
+    background: $green;
+    display: flex;
+    padding: 1rem;
+}
+
+#address {
+    margin: 0;
+}
