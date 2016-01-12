@@ -1,0 +1,19 @@
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <p id="address">Forecast for: {{address}}</p>
+    </nav>
+    <section id="current-forecast">
+        <h2>Current Conditions:</h2>
+        <div id="current-div">
+            <p id="current-temp">{{currently.temperature}}°</p>
+            <p id="apparent-temp">{{currently.summary}} • Feels Like {{currently.apparentTemperature}}°</p>
+        </div>
+        <div id="daily-div">
+            <p id="current-wind">Windspeed is {{currently.windSpeed}}mph</p>
+            <p id="daily-high">Today&rsquo;s high: {{daily.temperatureMax}}°</p>
+            <p id="daily-low">Today&rsquo;s low: {{daily.temperatureMin}}°</p>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,12 +1,16 @@
-a {
+a, #address {
     color: $white;
     text-decoration: none;
 }
 
 nav {
     align-items: center;
+    justify-content: space-between;
     background: $green;
     display: flex;
     padding: 1rem;
-    width: 100%;
+}
+
+#address {
+    margin: 0;
 }
