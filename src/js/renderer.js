@@ -40,8 +40,9 @@ function* _generateView(templateFiles, options) {
     var templates = yield Promise.all(templateFiles);
 
     if (options.hasOwnProperty("location")) {
-        var latLong = yield Promise.resolve(geocode.geocode(options.location));
-        var forecastData = yield Promise.resolve(forecast.forecast(latLong.lat, latLong.lng));
+        var location = yield Promise.resolve(geocode.geocode(options.location));
+        var forecastData = yield Promise.resolve(forecast.forecast(location.latLong.lat, location.latLong.lng));
+        options.address = location.address;
         options.currently = forecastData.currently;
         options.daily = forecastData.daily.data[0];
     }
