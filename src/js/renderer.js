@@ -43,7 +43,7 @@ function* _generateView(templateFiles, options) {
         var latLong = yield Promise.resolve(geocode.geocode(options.location));
         var forecastData = yield Promise.resolve(forecast.forecast(latLong.lat, latLong.lng));
         options.currently = forecastData.currently;
-        options.daily = forecastData.daily;
+        options.daily = forecastData.daily.data[0];
     }
 
     var view = "", compiledTemplate;
