@@ -64,8 +64,15 @@ function* _generateView(templateFiles, options) {
  * @return {Promise} - Promise for view
  */
 function render(templateName, options) {
-    if (options == undefined) {
+    /**
+     * querystring.parse() does not prototype chain to Object,
+     * so we need to manually set the prototype.
+     */
+    if (undefined == options) {
         options = {};
+    }
+    else {
+        Object.setPrototypeOf(options, Object.prototype);
     }
 
     var templates = [];
