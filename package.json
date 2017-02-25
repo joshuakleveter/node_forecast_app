@@ -1,11 +1,11 @@
 {
   "name": "node_forecast_app",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A basic Node-based forecast application.",
   "main": "dist/main.js",
   "scripts": {
     "app": "gulp build && cd dist && node main.js",
-    "debug": "gulp build && cd dist && iron-node main.js"
+    "dev": "gulp build && cd dist && node --debug=5858 main.js"
   },
   "repository": {
     "type": "git",
