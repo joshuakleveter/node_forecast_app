@@ -12,18 +12,19 @@ var router = require("./js/router.js");
 ////////
 
 /**
- * Create an HTTP server
- * @return {Promise} - Node.js HTTP server
- */
+* Create an HTTP server
+* @return {Promise} - Node.js HTTP server
+*/
 var serverPromise = new Promise(function (resolve, reject) {
     var httpServer = http.createServer();
     resolve(httpServer);
     reject("There was an error in starting the server!");
-}).then(
+})
+.then(
     /**
-     * If serverPromise is fulfilled
-     * Begin listening on localhost:3000
-     */
+    * If serverPromise is fulfilled
+    * Begin listening on localhost:3000
+    */
     function onFulfilled(httpServer) {
         //Set up a Node.js server on localhost:3000
         httpServer.listen(3000, "localhost", function () {
@@ -31,10 +32,11 @@ var serverPromise = new Promise(function (resolve, reject) {
         });
         return httpServer;
     }
-).then(
+)
+.then(
     /**
-     * Handle any HTTP requests from the client
-     */
+    * Handle any HTTP requests from the client
+    */
     function onFulfilled(httpServer) {
         httpServer.on("request", function (request, response) {
             router.route(request, response);
@@ -43,9 +45,9 @@ var serverPromise = new Promise(function (resolve, reject) {
 );
 
 /**
- * Catch any errors thrown in the promise chain
- * and log the error to stderr
- */
+* Catch any errors thrown in the promise chain
+* and log the error to stderr
+*/
 serverPromise.catch(
     function onRejected(error) {
         process.stderr.write(error.message + "\n");
