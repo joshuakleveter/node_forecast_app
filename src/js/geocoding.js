@@ -56,6 +56,12 @@ function _geocodeRequest(zip) {
 function* geocode(zip) {
     //Make a geocode API request and wait for it to resolve
     var geocodeResponse = yield Promise.resolve(_geocodeRequest(zip));
+
+    // Validate the geocoder's response.
+    if (0 == geocodeResponse.results.length) {
+        return false;
+    }
+
     //Get location object from results and return it
     var location = {
         "address": geocodeResponse.results[0].formatted_address,
