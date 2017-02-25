@@ -15,10 +15,10 @@ var runner = require("./runner.js");
 ////////////////////
 
 /**
- * Get the contents of a file
- * @param  {String} filepath - Path to file
- * @return {Promise}         - Promise for file data
- */
+* Get the contents of a file
+* @param  {String} filepath - Path to file
+* @return {Promise}         - Promise for file data
+*/
 function getFile(filepath) {
     var filePromise = new Promise(function (resolve, reject) {
         fs.readFile(filepath, "utf8", function (error, data) {
@@ -32,21 +32,32 @@ function getFile(filepath) {
 
 
 /**
- * Generate a view from templates
- * @param  {Array}  - Array of template files in render order
- * @return {String} - View HTML
- */
+* Generate a view from templates
+* @param  {Array}  - Array of template files in render order
+* @return {String} - View HTML
+*/
 function* _generateView(templateFiles, options) {
+    var forecastData;
+    var location;
     var templates = yield Promise.all(templateFiles);
-
+    
     if (options.hasOwnProperty("location")) {
-        var location = yield Promise.resolve(geocode.geocode(options.location));
-        var forecastData = yield Promise.resolve(forecast.forecast(location.latLong.lat, location.latLong.lng));
-        options.address = location.address;
-        options.currently = forecastData.currently;
-        options.daily = forecastData.daily.data[0];
+        try {
+            location = yield Promise.resolve(geocode.geocode(options.location));
+            if (!location) {
+                throw new Error("Invalid location.");
+            }
+            else {
+                forecastData = yield Promise.resolve(forecast.forecast(location.latLong.lat, location.latLong.lng));
+                options.address = location.address;
+                options.currently = forecastData.currently;
+                options.daily = forecastData.daily.data[0];
+            }
+        } catch (error) {
+            options = null;
+        }
     }
-
+    
     var view = "", compiledTemplate;
     templates.forEach(function (template) {
         compiledTemplate = handlebars.compile(template);
@@ -58,23 +69,23 @@ function* _generateView(templateFiles, options) {
 
 
 /**
- * Handle rendering views
- * @param  {String}  - Name of template to render
- * @param  {Object}  - Options object
- * @return {Promise} - Promise for view
- */
+* Handle rendering views
+* @param  {String}  - Name of template to render
+* @param  {Object}  - Options object
+* @return {Promise} - Promise for view
+*/
 function render(templateName, options) {
     /**
-     * querystring.parse() does not prototype chain to Object,
-     * so we need to manually set the prototype.
-     */
+    * querystring.parse() does not prototype chain to Object,
+    * so we need to manually set the prototype.
+    */
     if (undefined == options) {
         options = {};
     }
     else {
         Object.setPrototypeOf(options, Object.prototype);
     }
-
+    
     var templates = [];
     switch (templateName) {
         case "home":
@@ -97,7 +108,7 @@ function render(templateName, options) {
             ];
             break;
     }
-
+    
     return runner.run(_generateView, templates, options);
 }
 
