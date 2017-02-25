@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "scripts": {
     "app": "gulp build && cd dist && node main.js",
-    "debug": "gulp build && cd dist && iron-node main.js"
+    "dev": "gulp build && cd dist && node --debug=5858 main.js"
   },
   "repository": {
     "type": "git",
