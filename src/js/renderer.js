@@ -54,7 +54,9 @@ function* _generateView(templateFiles, options) {
                 options.daily = forecastData.daily.data[0];
             }
         } catch (error) {
-            options = null;
+            options = {
+                address: "Nowhere! That ZIP code is invalid."
+            };
         }
     }
     
