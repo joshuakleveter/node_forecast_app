@@ -2,8 +2,9 @@
 //Imports //
 ////////////
 
-var render = require("./renderer.js");
-var runner = require("./runner.js");
+var fs =          require('fs');
+var render =      require("./renderer.js");
+var runner =      require("./runner.js");
 var querystring = require("querystring");
 
 
@@ -33,6 +34,20 @@ function error500(response, error) {
     response.write("<p>Sorry! We encountered the following error:<p>");
     response.write("<p>" + error.message + "</p>");
     response.end();
+}
+
+
+/**
+ * Import and parse a routes file.
+ * Serves a similar purpose to Apache RewriteRules
+ * 
+ * @param   {string} file Name of the routes file to import
+ * @returns {Object}      Routes object
+ */
+function _importRoutes(file) {
+    var routesJSON = fs.readFileSync(`${__dirname}/${file}`).toString();
+    var routesObj = JSON.parse(routesJSON);
+    return routesObj;
 }
 
 
