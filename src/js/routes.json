@@ -1,0 +1,6 @@
+{
+    "": "home",
+    "/": "home",
+    "/css/main.css": "${PUBLIC}/css/main.css",
+    "/forecast?location=(.*)": ["forecast", "zip"]
+}
