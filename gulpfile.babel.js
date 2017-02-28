@@ -41,7 +41,7 @@ gulp.task("watch", ["build"], function () {
 /**
  * Build webapp
  */
-gulp.task("build", ["html:build", "js:build", "sass:build"]);
+gulp.task("build", ["html:build", "js:build", "json:copy","sass:build"]);
 
 
 
@@ -80,6 +80,18 @@ gulp.task("js:build", function jsBuildTask() {
     .pipe(plugin.eslint())
     .pipe(plugin.eslint.format())
     .pipe(gulp.dest(jsBuildDir));
+});
+
+
+/**
+ * Copy JSON files
+ */
+gulp.task("json:copy", function JSONCopyTask() {
+    var jsonFiles = "./src/**/*.json";
+    var jsonDistDir = "./dist";
+
+    gulp.src(jsonFiles)
+    .pipe(gulp.dest(jsonDistDir));
 });
 
 
